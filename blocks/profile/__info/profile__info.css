@@ -1,9 +1,11 @@
 .profile__info {
-  padding: 0 72px 0 30px;
+  width: calc(100% - 42px);
+  margin: 0;
+  padding: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .profile__info {
-    grid-auto-flow: row;
+    text-align: center;
   }
 }

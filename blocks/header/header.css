@@ -1,14 +1,16 @@
 .header {
-  min-width: 320px;
-  min-height: 74px;
-  border-bottom: 1px solid #545454;
-  box-sizing: border-box;
   max-width: 880px;
-  width: 100%;
+  box-sizing: border-box;
+  width: calc(100% - 24px * 2);
+  min-height: 74px;
+  padding: 0;
+  border-bottom: 1px solid #545454;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .header {
       min-height: 56px;
+      width: 100%;
+      padding-left: 27px;
   }
 }

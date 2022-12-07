@@ -2,10 +2,11 @@
   width: 100%;
   display: grid;
   grid-template-columns: 120px auto 150px;
+  gap: 28px 30px;
   align-items: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .profile {
     grid-template-columns: auto;
     justify-items: center;

@@ -5,8 +5,8 @@
   line-height: 1.22;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .profile__description {
-    text-align: center;
+    font-size: 14px;
   }
 }

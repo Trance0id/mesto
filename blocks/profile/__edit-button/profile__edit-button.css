@@ -6,3 +6,10 @@
   height: 24px;
   background-image: url(../../../images/edit.png);
 }
+
+@media (max-width: 650px) {
+  .profile__edit-button {
+    top: 2px;
+    right: -34px;
+  }
+}

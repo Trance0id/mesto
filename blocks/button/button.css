@@ -3,4 +3,10 @@
   border: 1px solid #fff;
   background-repeat: no-repeat;
   background-position: center;
+  transition: opacity .2s ease;
+}
+
+.button:hover {
+  opacity: .6;
+  cursor: pointer;
 }
