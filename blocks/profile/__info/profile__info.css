@@ -1,0 +1,9 @@
+.profile__info {
+  padding: 0 72px 0 30px;
+}
+
+@media (max-width: 600px) {
+  .profile__info {
+    grid-auto-flow: row;
+  }
+}

@@ -1,0 +1,6 @@
+.button {
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+}
