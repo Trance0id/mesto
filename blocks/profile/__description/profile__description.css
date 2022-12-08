@@ -4,7 +4,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
-  display: inline;
+  display: inline-block;
   grid-row-start: 2;
   text-overflow: ellipsis;
   overflow: hidden;
