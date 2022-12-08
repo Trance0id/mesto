@@ -1,5 +1,6 @@
 .profile__description {
-  max-width: 100%;
+  width: 100%;
+  max-width: calc(100vw - 120px - 150px - 60px - 48px - 24px - 18px - 16px);
   margin: 0;
   font-weight: 400;
   font-size: 18px;
@@ -12,6 +13,7 @@
 
 @media (max-width: 650px) {
   .profile__description {
+    max-width: 100%;
     font-size: 14px;
   }
 }
