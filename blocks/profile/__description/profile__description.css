@@ -1,8 +1,13 @@
 .profile__description {
+  max-width: 100%;
   margin: 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
+  display: inline;
+  grid-row-start: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 @media (max-width: 650px) {

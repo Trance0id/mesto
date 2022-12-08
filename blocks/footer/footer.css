@@ -12,5 +12,6 @@
   .footer {
     font-size: 14px;
     width: calc(100% - 19px * 2);
+    padding-bottom: 36px;
   }
 }
