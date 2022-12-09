@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: 100%;
   row-gap: 50px;
+  flex: auto;
 }
 
 @media (max-width: 650px) {

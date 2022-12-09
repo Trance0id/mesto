@@ -1,7 +1,9 @@
 .profile__edit-button {
   width: 24px;
   height: 24px;
-  background-image: url(../../../images/edit.png);
+  background-image: url(../../../images/logo/logo-edit.svg);
+  background-position: center;
+  background-size: 42%;
 }
 
 .profile__edit-button:hover {
