@@ -1,5 +1,5 @@
 .popup__heading {
-  margin: 0 0 48px;
+  margin: 0 0 50px;
   color: #000;
   font-weight: 900;
   font-size: 24px;
@@ -8,6 +8,7 @@
 
 @media (max-width: 650px) {
   .popup__heading {
+    margin-bottom: 71px;
     font-size: 18px;
     line-height: 1.22;
   }

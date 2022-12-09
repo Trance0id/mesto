@@ -6,6 +6,10 @@
   border-radius: 2px;
 }
 
+.profile__add-button:hover {
+  opacity: .6;
+}
+
 @media (max-width: 650px) {
   .profile__add-button {
     width: 100%;

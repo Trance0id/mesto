@@ -1,15 +1,4 @@
 .cards {
   margin: 0;
   padding: 0;
-  width: 100%;
-  max-width: 880px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(282px, auto));
-  gap: 20px 17px;
-}
-
-@media (max-width:650px) {
-  .cards {
-    grid-template-columns: 100%;
-  }
 }

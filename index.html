@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesto</title>
+  <title>Проект Место</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 
@@ -16,78 +16,84 @@
     </header>
 
     <main class="content">
-      <section class="profile" aria-label="Your profile">
+      <section class="profile" aria-label="Данные профиля">
         <img class="profile__avatar" src="./images/Avatar-VasnevD.jpeg" alt="Аватар пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Дмитрий Васнев</h1>
-          <button class="button profile__edit-button"></button>
-          <p class="profile__description">Исследователь web-разработки</p>
+          <button type="button" class="button profile__edit-button"></button>
+          <p class="profile__description">Исследователь океана web-разработки</p>
         </div>
-        <button class="button profile__add-button"></button>
+        <button type="button" class="button profile__add-button"></button>
       </section>
-      <ul class="cards">
-        <li class="card">
-          <img class="card__image" src="./images/images-karachevsk.png" alt="Достопримечательность Карачаево-Черкессии">
-          <div class="card__caption">
-            <h2 class="card__caption-title">
-              Карачевск
-            </h2>
-            <button class="button card__button-like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/images-elbrus-1.png" alt="Достопримечательность Карачаево-Черкессии">
-          <div class="card__caption">
-            <h2 class="card__caption-title">
-              Гора Эльбрус
-            </h2>
-            <button class="button card__button-like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/images-dombai-1.png" alt="Достопримечательность Карачаево-Черкессии">
-          <div class="card__caption">
-            <h2 class="card__caption-title">
-              Домбай
-            </h2>
-            <button class="button card__button-like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/images-elbrus-1.png" alt="Достопримечательность Карачаево-Черкессии">
-          <div class="card__caption">
-            <h2 class="card__caption-title">
-              Гора Эльбрус
-            </h2>
-            <button class="button card__button-like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/images-dombai-1.png" alt="Достопримечательность Карачаево-Черкессии">
-          <div class="card__caption">
-            <h2 class="card__caption-title">
-              Домбай
-            </h2>
-            <button class="button card__button-like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/images-karachevsk.png" alt="Достопримечательность Карачаево-Черкессии">
-          <div class="card__caption">
-            <h2 class="card__caption-title">
-              Карачаево-Черкессия
-            </h2>
-            <button class="button card__button-like"></button>
-          </div>
-        </li>
-      </ul>
+      <section class="cards" aria-label="Карточки профиля">
+        <ul class="cards__list">
+          <li class="card">
+            <img class="card__image" src="./images/images-karachevsk.png"
+              alt="Достопримечательность Карачаево-Черкессии">
+            <div class="card__caption">
+              <h2 class="card__caption-title">
+                Карачевск
+              </h2>
+              <button type="button" class="button card__button-like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/images-elbrus-1.png" alt="Достопримечательность Карачаево-Черкессии">
+            <div class="card__caption">
+              <h2 class="card__caption-title">
+                Гора Эльбрус
+              </h2>
+              <button type="button" class="button card__button-like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/images-dombai-1.png" alt="Достопримечательность Карачаево-Черкессии">
+            <div class="card__caption">
+              <h2 class="card__caption-title">
+                Домбай
+              </h2>
+              <button type="button" class="button card__button-like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/images-elbrus-1.png" alt="Достопримечательность Карачаево-Черкессии">
+            <div class="card__caption">
+              <h2 class="card__caption-title">
+                Гора Эльбрус
+              </h2>
+              <button type="button" class="button card__button-like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/images-dombai-1.png" alt="Достопримечательность Карачаево-Черкессии">
+            <div class="card__caption">
+              <h2 class="card__caption-title">
+                Домбай
+              </h2>
+              <button type="button" class="button card__button-like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/images-karachevsk.png"
+              alt="Достопримечательность Карачаево-Черкессии">
+            <div class="card__caption">
+              <h2 class="card__caption-title">
+                Карачаево-Черкессия
+              </h2>
+              <button type="button" class="button card__button-like"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
     </main>
-    <footer class="footer">&copy; 2022 Mesto Russia</footer>
+    <footer class="footer">
+      <p class="footer__text">&copy; 2022 Mesto Russia</p>
+    </footer>
     <div class="popup">
       <div class="popup__container">
-        <button class="button popup__close"></button>
+        <button type="button" class="button popup__close"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
-        <form>
+        <form name="editprofile">
           <input type="text" class="popup__input" name="name">
           <input type="text" class="popup__input" name="about">
           <button type="submit" class="button popup__save">Сохранить</button>
@@ -95,7 +101,7 @@
       </div>
     </div>
   </div>
-  <script src="./index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
