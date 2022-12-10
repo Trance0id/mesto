@@ -1,25 +1,17 @@
 .profile__description {
-  width: 100%;
-  max-width: calc(880px - 120px - 150px - 60px - 24px - 18px);
   margin: 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
-  display: inline-block;
   grid-row-start: 2;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-
-@media (max-width: 944px) {
-  .profile__description {
-    max-width: calc(100vw - 120px - 150px - 60px - 48px - 24px - 18px - 16px);
-  }
+  white-space: nowrap;
 }
 
 @media (max-width: 650px) {
   .profile__description {
-    max-width: 100%;
+    grid-column-start: 2;
     font-size: 14px;
   }
 }

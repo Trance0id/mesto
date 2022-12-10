@@ -1,24 +1,17 @@
 .profile__name {
-  width: 100%;
-  max-width: calc(880px - 120px - 150px - 60px - 24px - 18px);
   margin: 0;
-  display: inline-block;
   font-weight: 500;
   font-size: 42px;
   line-height: 1.14;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
 }
 
-@media (max-width: 944px) {
-  .profile__name {
-    max-width: calc(100vw - 120px - 150px - 60px - 48px - 24px - 18px - 16px);
-  }
-}
 
 @media (max-width: 650px) {
   .profile__name {
-    max-width: 100%;
+    grid-column-start: 2;
     font-size: 27px;
     line-height: 1.22;
   }
