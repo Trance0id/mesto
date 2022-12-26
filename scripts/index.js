@@ -1,11 +1,14 @@
 const popupProfile = document.querySelector('.popup_type_edit');
 const popupCard = document.querySelector('.popup_type_add');
+const popupZoom = document.querySelector('.popup_type_zoom');
 
 const buttonOpenEditProfile = document.querySelector('.profile__edit-button');
 const buttonCloseEditProfile = popupProfile.querySelector('.popup__close');
 
 const buttonOpenAddCard = document.querySelector('.profile__add-button');
 const buttonCloseAddCard = popupCard.querySelector('.popup__close');
+
+const buttonCloseZoom = popupZoom.querySelector('.popup__close');
 
 const nameField = document.querySelector('.profile__name');
 const aboutField = document.querySelector('.profile__description');
@@ -50,21 +53,36 @@ const initialCards = [
   }
 ];
 
-function handleLike(evt) {
-  const like = evt.target;
-  like.classList.toggle('card__button-like_active');
+function likeCard(evt) {
+  evt.target.classList.toggle('card__button-like_active');
 }
 
-function handleDelete(evt) {
+function deleteCard(evt) {
   evt.target.closest('.card').remove();
 }
 
+function closeZoom() {
+  popupZoom.classList.remove('popup_opened');
+  buttonCloseZoom.removeEventListener('click', closeZoom);
+}
+
+function openZoom(evt) {
+  buttonCloseZoom.addEventListener('click', closeZoom);
+  const currentCard = evt.target.closest('.card');
+  const img = popupZoom.querySelector('.popup__img');
+  img.setAttribute('src', currentCard.querySelector('.card__image').getAttribute('src'));
+  img.setAttribute('alt', currentCard.querySelector('.card__image').getAttribute('alt'));
+  popupZoom.querySelector('.popup__caption').textContent = currentCard.querySelector('.card__caption-title').textContent;
+  popupZoom.classList.add('popup_opened');
+}
 
 function addEventListeners(card) {
   const likeButton = card.querySelector('.card__button-like');
   const deleteButton = card.querySelector('.card__button-delete');
-  likeButton.addEventListener('click', handleLike);
-  deleteButton.addEventListener('click', handleDelete);
+  const img = card.querySelector('.card__image');
+  likeButton.addEventListener('click', likeCard);
+  deleteButton.addEventListener('click', deleteCard);
+  img.addEventListener('click', openZoom);
 }
 
 function createCard(item) {
