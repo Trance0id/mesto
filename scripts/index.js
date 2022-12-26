@@ -1,9 +1,12 @@
-const popup = document.querySelector('.popup');
-const buttonEditProfile = document.querySelector('.profile__edit-button');
-const buttonCloseEdit = document.querySelector('.popup__close');
+const popupProfile = document.querySelector('.popup-edit-profile');
+const popupCard = document.querySelector('.popup-add-card');
+const buttonOpenEditProfile = document.querySelector('.profile__edit-button');
+const buttonCloseEditProfile = popupProfile.querySelector('.popup__close');
+const buttonOpenAddCard = document.querySelector('.profile__add-button');
+const buttonCloseAddCard = popupCard.querySelector('.popup__close');
 const nameField = document.querySelector('.profile__name');
 const aboutField = document.querySelector('.profile__description')
-const formEditProfile = popup.querySelector('form[name="editprofile"]');
+const formEditProfile = popupProfile.querySelector('form[name="editprofile"]');
 const nameInput = formEditProfile.querySelector('input[name="name"]');
 const aboutInput = formEditProfile.querySelector('input[name="about"]');
 
@@ -42,6 +45,7 @@ function createCard(card) {
   const newCard = cardTemplate.cloneNode(true);
   newCard.querySelector('.card__caption-title').textContent = card['name'];
   newCard.querySelector('.card__image').setAttribute('src', card['link']);
+  newCard.querySelector('.card__image').setAttribute('alt', 'Ещё одно интересное место');
   return newCard;
 }
 
@@ -51,25 +55,37 @@ function renderCards(cards) {
   });
 }
 
-function editProfile() {
+function openEditProfile() {
   nameInput.value = nameField.textContent;
   aboutInput.value = aboutField.textContent;
-  popup.classList.add('popup_opened');
+  popupProfile.classList.add('popup_opened');
 }
 
-function closeEdit() {
-  popup.classList.remove('popup_opened');
+function closeEditProfile() {
+  popupProfile.classList.remove('popup_opened');
 }
 
-buttonEditProfile.addEventListener('click', editProfile);
+function openAddCard() {
+  popupCard.classList.add('popup_opened');
+}
 
-buttonCloseEdit.addEventListener('click', closeEdit);
+function closeAddCard() {
+  popupCard.classList.remove('popup_opened');
+}
+
+buttonOpenEditProfile.addEventListener('click', openEditProfile);
+
+buttonCloseEditProfile.addEventListener('click', closeEditProfile);
+
+buttonOpenAddCard.addEventListener('click', openAddCard);
+
+buttonCloseAddCard.addEventListener('click', closeAddCard);
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
   nameField.textContent = nameInput.value;
   aboutField.textContent = aboutInput.value;
-  closeEdit();
+  closeEditProfile();
 }
 
 formEditProfile.addEventListener('submit', handleEditProfileSubmit);
