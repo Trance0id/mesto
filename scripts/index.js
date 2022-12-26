@@ -79,10 +79,10 @@ function openZoom(evt) {
 function addEventListeners(card) {
   const likeButton = card.querySelector('.card__button-like');
   const deleteButton = card.querySelector('.card__button-delete');
-  const img = card.querySelector('.card__image');
+  const imgButton = card.querySelector('.card__image');
   likeButton.addEventListener('click', likeCard);
   deleteButton.addEventListener('click', deleteCard);
-  img.addEventListener('click', openZoom);
+  imgButton.addEventListener('click', openZoom);
 }
 
 function createCard(item) {
@@ -141,6 +141,5 @@ function handleAddCardSubmit(evt) {
 
 buttonOpenEditProfile.addEventListener('click', openEditProfile);
 buttonOpenAddCard.addEventListener('click', openAddCard);
-
 
 initialCards.reverse().forEach(renderCard);
