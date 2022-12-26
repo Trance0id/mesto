@@ -9,4 +9,5 @@
   align-items: center;
   overflow: hidden;
   background-color: #fff;
+  position: relative;
 }

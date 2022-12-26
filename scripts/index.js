@@ -55,16 +55,16 @@ function handleLike(evt) {
   like.classList.toggle('card__button-like_active');
 }
 
-// function handleDelete(evt) {
-
-// }
+function handleDelete(evt) {
+  evt.target.closest('.card').remove();
+}
 
 
 function addEventListeners(card) {
   const likeButton = card.querySelector('.card__button-like');
-  // const deleteButton = card.querySelector('.card__button-delete');
+  const deleteButton = card.querySelector('.card__button-delete');
   likeButton.addEventListener('click', handleLike);
-  // deleteButton.addEventListener('click', handleDelete);
+  deleteButton.addEventListener('click', handleDelete);
 }
 
 function createCard(item) {
@@ -125,4 +125,4 @@ buttonOpenEditProfile.addEventListener('click', openEditProfile);
 buttonOpenAddCard.addEventListener('click', openAddCard);
 
 
-initialCards.forEach(renderCard);
+initialCards.reverse().forEach(renderCard);
