@@ -1,5 +1,5 @@
-const popupProfile = document.querySelector('.popup-edit-profile');
-const popupCard = document.querySelector('.popup-add-card');
+const popupProfile = document.querySelector('.popup_type_edit');
+const popupCard = document.querySelector('.popup_type_add');
 
 const buttonOpenEditProfile = document.querySelector('.profile__edit-button');
 const buttonCloseEditProfile = popupProfile.querySelector('.popup__close');
@@ -50,11 +50,29 @@ const initialCards = [
   }
 ];
 
-function createCard(card) {
+function handleLike(evt) {
+  const like = evt.target;
+  like.classList.toggle('card__button-like_active');
+}
+
+// function handleDelete(evt) {
+
+// }
+
+
+function addEventListeners(card) {
+  const likeButton = card.querySelector('.card__button-like');
+  // const deleteButton = card.querySelector('.card__button-delete');
+  likeButton.addEventListener('click', handleLike);
+  // deleteButton.addEventListener('click', handleDelete);
+}
+
+function createCard(item) {
   const newCard = cardTemplate.cloneNode(true);
-  newCard.querySelector('.card__caption-title').textContent = card.name;
-  newCard.querySelector('.card__image').setAttribute('src', card.link);
-  newCard.querySelector('.card__image').setAttribute('alt', `Фото места под названием ${card.name}`);
+  newCard.querySelector('.card__caption-title').textContent = item.name;
+  newCard.querySelector('.card__image').setAttribute('src', item.link);
+  newCard.querySelector('.card__image').setAttribute('alt', `Фото места под названием ${item.name}`);
+  addEventListeners(newCard);
   return newCard;
 }
 
@@ -77,8 +95,7 @@ function closeEditProfile() {
 }
 
 function openAddCard() {
-  titleInput.value = '';
-  urlInput.value = '';
+  formAddCard.reset();
   formAddCard.addEventListener('submit', handleAddCardSubmit);
   buttonCloseAddCard.addEventListener('click', closeAddCard);
   popupCard.classList.add('popup_opened');
@@ -106,5 +123,6 @@ function handleAddCardSubmit(evt) {
 
 buttonOpenEditProfile.addEventListener('click', openEditProfile);
 buttonOpenAddCard.addEventListener('click', openAddCard);
+
 
 initialCards.forEach(renderCard);
