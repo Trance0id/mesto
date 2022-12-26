@@ -26,64 +26,7 @@
         <button type="button" class="button profile__add-button" aria-label="Добавить"></button>
       </section>
       <section class="cards" aria-label="Карточки профиля">
-        <ul class="cards__list">
-          <li class="card">
-            <img class="card__image" src="./images/images-karachevsk.png"
-              alt="Достопримечательность Карачаево-Черкессии">
-            <div class="card__caption">
-              <h2 class="card__caption-title">
-                Карачевск
-              </h2>
-              <button type="button" class="button card__button-like" aria-label="Нравится"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/images-elbrus-1.png" alt="Достопримечательность Карачаево-Черкессии">
-            <div class="card__caption">
-              <h2 class="card__caption-title">
-                Гора Эльбрус
-              </h2>
-              <button type="button" class="button card__button-like" aria-label="Нравится"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/images-dombai-1.png" alt="Достопримечательность Карачаево-Черкессии">
-            <div class="card__caption">
-              <h2 class="card__caption-title">
-                Домбай
-              </h2>
-              <button type="button" class="button card__button-like" aria-label="Нравится"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/images-elbrus-1.png" alt="Достопримечательность Карачаево-Черкессии">
-            <div class="card__caption">
-              <h2 class="card__caption-title">
-                Гора Эльбрус
-              </h2>
-              <button type="button" class="button card__button-like" aria-label="Нравится"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/images-dombai-1.png" alt="Достопримечательность Карачаево-Черкессии">
-            <div class="card__caption">
-              <h2 class="card__caption-title">
-                Домбай
-              </h2>
-              <button type="button" class="button card__button-like" aria-label="Нравится"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/images-karachevsk.png"
-              alt="Достопримечательность Карачаево-Черкессии">
-            <div class="card__caption">
-              <h2 class="card__caption-title">
-                Карачаево-Черкессия
-              </h2>
-              <button type="button" class="button card__button-like" aria-label="Нравится"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="cards__list"></ul>
       </section>
     </main>
     <footer class="footer">
@@ -100,6 +43,15 @@
         </form>
       </div>
     </div>
+    <template class="card-template">
+      <li class="card">
+        <img class="card__image" src="" alt="">
+        <div class="card__caption">
+          <h2 class="card__caption-title"></h2>
+          <button type="button" class="button card__button-like" aria-label="Нравится"></button>
+        </div>
+      </li>
+    </template>
   </div>
   <script src="./scripts/index.js"></script>
 </body>
