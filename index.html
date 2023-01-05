@@ -36,10 +36,12 @@
       <div class="popup__container">
         <button type="button" class="button popup__close" aria-label="Закрыть"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
-        <form name="edit-profile">
-          <input type="text" class="popup__input" name="name">
-          <input type="text" class="popup__input" name="about">
-          <button type="submit" class="button popup__save">Сохранить</button>
+        <form name="edit-profile" class="popup__form">
+          <input type="text" class="popup__input" name="name" required minlength="2" maxlength="40" autocomplete="off">
+          <div class="popup__error name-error"></div>
+          <input type="text" class="popup__input" name="about" required minlength="2" maxlength="200" autocomplete="off">
+          <div class="popup__error about-error"></div>
+          <button type="submit" class="button popup__button">Сохранить</button>
         </form>
       </div>
     </div>
@@ -47,10 +49,12 @@
       <div class="popup__container">
         <button type="button" class="button popup__close" aria-label="Закрыть"></button>
         <h3 class="popup__heading">Новое место</h3>
-        <form name="add-card">
-          <input type="text" class="popup__input" name="title" placeholder="Название">
-          <input type="text" class="popup__input" name="url" placeholder="Ссылка на картинку">
-          <button type="submit" class="button popup__save">Создать</button>
+        <form name="add-card" class="popup__form">
+          <input type="text" class="popup__input" name="title" placeholder="Название" required minlength="2" maxlength="30" autocomplete="off">
+          <div class="popup__error title-error"></div>
+          <input type="url" class="popup__input" name="url" placeholder="Ссылка на картинку" required minlength="2" autocomplete="off">
+          <div class="popup__error url-error"></div>
+          <button type="submit" class="button popup__button">Создать</button>
         </form>
       </div>
     </div>
@@ -76,6 +80,7 @@
   </div>
   <script src="./scripts/data.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
