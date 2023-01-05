@@ -27,7 +27,7 @@ const cardsContainer = document.querySelector('.cards__list');
 const popupImg = popupZoom.querySelector('.popup__img');
 const popupCaption = popupZoom.querySelector('.popup__caption');
 
-const pictureAltPrefix = 'Фото места под названием '
+const pictureAltPrefix = 'Фото места под названием ';
 
 function likeCard(evt) {
   evt.target.classList.toggle('card__button-like_active');
@@ -117,7 +117,7 @@ function handleEditProfileSubmit(evt) {
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  const newCard = { name: titleInput.value || "Без названия", link: urlInput.value || "https://imageup.ru/img30/4138533/mepracticumjust-face.jpeg" };
+  const newCard = { name: titleInput.value, link: urlInput.value};
   renderCard(newCard);
   closeAddCard();
 }
