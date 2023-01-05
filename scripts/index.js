@@ -29,6 +29,14 @@ const popupCaption = popupZoom.querySelector('.popup__caption');
 
 const pictureAltPrefix = 'Фото места под названием ';
 
+function enableClosePopup(popup) {
+  popup.addEventListener('click', (evt) => {
+    if(evt.target === evt.currentTarget) {
+
+    }
+  });
+}
+
 function likeCard(evt) {
   evt.target.classList.toggle('card__button-like_active');
 }
@@ -43,6 +51,7 @@ function closePopup(popup) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  enableClosePopup(popup);
 }
 
 function closeZoom() {
@@ -55,6 +64,10 @@ function openZoom(name, link) {
   popupImg.setAttribute('alt', `${pictureAltPrefix}${name}`);
   popupCaption.textContent = name;
   buttonCloseZoom.addEventListener('click', closeZoom);
+  popupZoom.addEventListener('keyup', (evt) => {
+    console.log(evt.key);
+    // if (evt.key === 'esc') console.log('Esc pressed');
+  });
   openPopup(popupZoom);
 }
 
@@ -126,3 +139,21 @@ initialCards.reverse().forEach(renderCard);
 
 buttonOpenEditProfile.addEventListener('click', openEditProfile);
 buttonOpenAddCard.addEventListener('click', openAddCard);
+
+popupCard.addEventListener('click', (evt) => {
+  if(evt.currentTarget === evt.target) {
+    closeAddCard();
+  }
+});
+
+popupProfile.addEventListener('click', (evt) => {
+  if(evt.currentTarget === evt.target) {
+    closeEditProfile();
+  }
+});
+
+popupZoom.addEventListener('click', (evt) => {
+  if(evt.currentTarget === evt.target) {
+    closeZoom();
+  }
+});
