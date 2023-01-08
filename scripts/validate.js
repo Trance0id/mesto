@@ -1,3 +1,12 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 const showInputError = (form, input, errorMessage, config) => {
   const error = form.querySelector(`.${input.name}-error`);
   input.classList.add(config.inputErrorClass);
@@ -41,6 +50,7 @@ const setEventListeners = (form, config) => {
   const submitButton = form.querySelector(config.submitButtonSelector);
   toggleSubmitButtonState(inputs, submitButton, config);
   inputs.forEach((input) => {
+    hideInputError(form, input, config);
     input.addEventListener('input', function () {
       checkInputValidity(form, input, config);
       toggleSubmitButtonState(inputs, submitButton, config);
@@ -54,12 +64,3 @@ const enableValidation = (config) => {
       setEventListeners(form, config);
     });
 };
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});

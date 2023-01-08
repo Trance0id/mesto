@@ -37,9 +37,11 @@
         <button type="button" class="button popup__close" aria-label="Закрыть"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <form name="edit-profile" class="popup__form">
-          <input type="text" class="popup__input" name="name" required minlength="2" maxlength="40" autocomplete="off">
+          <input type="text" placeholder="Имя" class="popup__input" name="name" required minlength="2" maxlength="40"
+            autocomplete="off">
           <div class="popup__error name-error"></div>
-          <input type="text" class="popup__input" name="about" required minlength="2" maxlength="200" autocomplete="off">
+          <input type="text" placeholder="Вид деятельности" class="popup__input" name="about" required minlength="2"
+            maxlength="200" autocomplete="off">
           <div class="popup__error about-error"></div>
           <button type="submit" class="button popup__button">Сохранить</button>
         </form>
@@ -50,9 +52,11 @@
         <button type="button" class="button popup__close" aria-label="Закрыть"></button>
         <h3 class="popup__heading">Новое место</h3>
         <form name="add-card" class="popup__form">
-          <input type="text" class="popup__input" name="title" placeholder="Название" required minlength="2" maxlength="30" autocomplete="off">
+          <input type="text" class="popup__input" name="title" placeholder="Название" required minlength="2"
+            maxlength="30" autocomplete="off">
           <div class="popup__error title-error"></div>
-          <input type="url" class="popup__input" name="url" placeholder="Ссылка на картинку" required autocomplete="off">
+          <input type="url" class="popup__input" name="url" placeholder="Ссылка на картинку" required
+            autocomplete="off">
           <div class="popup__error url-error"></div>
           <button type="submit" class="button popup__button">Создать</button>
         </form>
