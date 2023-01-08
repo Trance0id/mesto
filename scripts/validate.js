@@ -50,11 +50,19 @@ const setEventListeners = (form, config) => {
   const submitButton = form.querySelector(config.submitButtonSelector);
   toggleSubmitButtonState(inputs, submitButton, config);
   inputs.forEach((input) => {
-    hideInputError(form, input, config);
     input.addEventListener('input', function () {
       checkInputValidity(form, input, config);
       toggleSubmitButtonState(inputs, submitButton, config);
     });
+  });
+};
+
+const removeValidationErrors = (form, config) => {
+  const inputs = Array.from(form.querySelectorAll(config.inputSelector));
+  const submitButton = form.querySelector(config.submitButtonSelector);
+  toggleSubmitButtonState(inputs, submitButton, config);
+  inputs.forEach((input) => {
+    hideInputError(form, input, config);
   });
 };
 
@@ -64,3 +72,5 @@ const enableValidation = (config) => {
       setEventListeners(form, config);
     });
 };
+
+enableValidation(validationConfig);

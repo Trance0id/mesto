@@ -96,13 +96,13 @@ function renderCard(card) {
 function launchEditProfile() {
   nameInput.value = nameField.textContent;
   aboutInput.value = aboutField.textContent;
-  enableValidation(validationConfig);
+  removeValidationErrors(formEditProfile, validationConfig);
   openPopup(popupEditProfile);
 }
 
 function launchAddCard() {
   formAddCard.reset();
-  enableValidation(validationConfig);
+  removeValidationErrors(formAddCard, validationConfig);
   openPopup(popupAddCard);
 }
 
