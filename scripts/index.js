@@ -1,3 +1,32 @@
+import Card from "./Card.js";
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add');
 const popupZoomCard = document.querySelector('.popup_type_zoom');
@@ -21,21 +50,12 @@ const aboutInput = formEditProfile.querySelector('input[name="about"]');
 const titleInput = formAddCard.querySelector('input[name="title"]');
 const urlInput = formAddCard.querySelector('input[name="url"]');
 
-const cardTemplate = document.querySelector('.card-template').content;
 const cardsContainer = document.querySelector('.cards__list');
 
 const popupImg = popupZoomCard.querySelector('.popup__img');
 const popupCaption = popupZoomCard.querySelector('.popup__caption');
 
 const pictureAltPrefix = 'Фото места под названием ';
-
-function likeCard(evt) {
-  evt.target.classList.toggle('card__button-like_active');
-}
-
-function deleteCard(evt) {
-  evt.target.closest('.card').remove();
-}
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -63,34 +83,16 @@ function handleOverlayClick(evt) {
   }
 }
 
-function launchZoomCard(name, link) {
+export function launchZoomCard(name, link) {
   popupImg.setAttribute('src', link);
   popupImg.setAttribute('alt', `${pictureAltPrefix}${name}`);
   popupCaption.textContent = name;
   openPopup(popupZoomCard);
 }
 
-function addCardEventListeners(card, name, link) {
-  const likeButton = card.querySelector('.card__button-like');
-  const deleteButton = card.querySelector('.card__button-delete');
-  const imgButton = card.querySelector('.card__image');
-  likeButton.addEventListener('click', likeCard);
-  deleteButton.addEventListener('click', deleteCard);
-  imgButton.addEventListener('click', () => launchZoomCard(name, link));
-}
-
-function createCard(name, link) {
-  const newCard = cardTemplate.cloneNode(true);
-  const newCardImg = newCard.querySelector('.card__image');
-  newCard.querySelector('.card__caption-title').textContent = name;
-  newCardImg.setAttribute('src', link);
-  newCardImg.setAttribute('alt', `${pictureAltPrefix}${name}`);
-  addCardEventListeners(newCard, name, link);
-  return newCard;
-}
-
 function renderCard(card) {
-  cardsContainer.prepend(createCard(card.name, card.link));
+  const newCard = new Card(card, '.card-template');
+  cardsContainer.prepend(newCard.createCard());
 }
 
 function launchEditProfile() {
