@@ -90,21 +90,16 @@ function handleKeyPress(evt) {
 
 function handleOverlayClick(evt) {
   const popup = evt.currentTarget;
-  if(popup === evt.target) {
+  if (popup === evt.target) {
     closePopup(popup);
   }
 }
 
-export function launchZoomCard(name, link) {
+function launchZoomCard(name, link) {
   popupImg.setAttribute('src', link);
   popupImg.setAttribute('alt', `${pictureAltPrefix}${name}`);
   popupCaption.textContent = name;
   openPopup(popupZoomCard);
-}
-
-function renderCard(card) {
-  const newCard = new Card(card, '.card-template');
-  cardsContainer.prepend(newCard.createCard());
 }
 
 function launchEditProfile() {
@@ -132,6 +127,11 @@ function handleAddCardSubmit(evt) {
   const newCard = { name: titleInput.value, link: urlInput.value };
   renderCard(newCard);
   closePopup(popupAddCard);
+}
+
+function renderCard(card) {
+  const newCard = new Card(card, '.card-template', launchZoomCard);
+  cardsContainer.prepend(newCard.createCard());
 }
 
 initialCards.reverse().forEach(renderCard);

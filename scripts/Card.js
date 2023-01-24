@@ -1,16 +1,26 @@
-import { launchZoomCard } from "./index.js";
 export default class Card {
-  constructor({name, link}, templateSelector) {
+
+  _name;
+  _link;
+  _templateSelector;
+  _newCard;
+  _likeButton;
+  _imageAltPrefix;
+  _launchZoomCard;
+
+  constructor({ name, link }, templateSelector, launchZoomCard) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
     this._imageAltPrefix = 'Фото места под названием';
-};
+    this._launchZoomCard = launchZoomCard;
+  };
 
   _getTemplate() {
     return document.querySelector(this._templateSelector)
-    .content.querySelector('.card')
-    .cloneNode(true);
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
   }
 
   _customizeCard() {
@@ -33,9 +43,10 @@ export default class Card {
     this._likeButton = this._newCard.querySelector('.card__button-like');
     const deleteButton = this._newCard.querySelector('.card__button-delete');
     const imgButton = this._newCard.querySelector('.card__image');
+
     this._likeButton.addEventListener('click', () => this._likeCard());
     deleteButton.addEventListener('click', () => this._deleteCard());
-    imgButton.addEventListener('click', () => launchZoomCard(this._name, this._link));
+    imgButton.addEventListener('click', () => this._launchZoomCard(this._name, this._link));
   }
 
   createCard() {

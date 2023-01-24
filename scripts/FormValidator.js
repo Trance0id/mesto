@@ -1,5 +1,10 @@
 export default class FormValidator {
 
+  _form;
+  _config;
+  _inputs;
+  _submitButton;
+
   constructor(config, form) {
     this._form = form;
     this._config = config;
@@ -45,14 +50,6 @@ export default class FormValidator {
     }
   };
 
-  resetValidation() {
-    const submitButton = this._form.querySelector(this._config.submitButtonSelector);
-    this._toggleSubmitButtonState(submitButton);
-    this._inputs.forEach(input => {
-      this._hideInputError(input);
-    });
-  };
-
   _setEventListeners() {
     this._toggleSubmitButtonState();
     this._inputs.forEach(input => {
@@ -60,6 +57,13 @@ export default class FormValidator {
         this._checkInputValidity(input);
         this._toggleSubmitButtonState();
       });
+    });
+  };
+
+  resetValidation() {
+    this._toggleSubmitButtonState();
+    this._inputs.forEach(input => {
+      this._hideInputError(input);
     });
   };
 
