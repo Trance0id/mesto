@@ -1,5 +1,5 @@
 import Card from "./Card.js";
-import FormValidator from "./formValidator.js";
+import FormValidator from "./FormValidator.js";
 
 const initialCards = [
   {
@@ -66,8 +66,6 @@ const popupImg = popupZoomCard.querySelector('.popup__img');
 const popupCaption = popupZoomCard.querySelector('.popup__caption');
 
 const pictureAltPrefix = 'Фото места под названием ';
-
-const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
