@@ -67,8 +67,6 @@ const popupCaption = popupZoomCard.querySelector('.popup__caption');
 
 const pictureAltPrefix = 'Фото места под названием ';
 
-const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleKeyPress);
