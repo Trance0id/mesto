@@ -1,4 +1,5 @@
 import Card from "./Card.js";
+import FormValidator from "./formValidator.js";
 
 const initialCards = [
   {
@@ -26,6 +27,15 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add');
@@ -56,6 +66,8 @@ const popupImg = popupZoomCard.querySelector('.popup__img');
 const popupCaption = popupZoomCard.querySelector('.popup__caption');
 
 const pictureAltPrefix = 'Фото места под названием ';
+
+const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -98,13 +110,13 @@ function renderCard(card) {
 function launchEditProfile() {
   nameInput.value = nameField.textContent;
   aboutInput.value = aboutField.textContent;
-  removeValidationErrors(formEditProfile, validationConfig);
+  editProfileValidation.resetValidation();
   openPopup(popupEditProfile);
 }
 
 function launchAddCard() {
   formAddCard.reset();
-  removeValidationErrors(formAddCard, validationConfig);
+  addCardValidation.resetValidation();
   openPopup(popupAddCard);
 }
 
@@ -133,3 +145,9 @@ buttonCloseZoom.addEventListener('click', () => closePopup(popupZoomCard));
 
 formEditProfile.addEventListener('submit', handleEditProfileSubmit);
 formAddCard.addEventListener('submit', handleAddCardSubmit);
+
+const editProfileValidation = new FormValidator(validationConfig, formEditProfile);
+editProfileValidation.enableValidation();
+
+const addCardValidation = new FormValidator(validationConfig, formAddCard);
+addCardValidation.enableValidation();
