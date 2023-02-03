@@ -8,12 +8,12 @@ export default class Card {
   _imageAltPrefix;
   _launchZoomCard;
 
-  constructor({ name, link }, templateSelector, launchZoomCard) {
+  constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
     this._imageAltPrefix = 'Фото места под названием';
-    this._launchZoomCard = launchZoomCard;
+    this.handleCardClick = handleCardClick;
   };
 
   _getTemplate() {
@@ -46,7 +46,7 @@ export default class Card {
 
     this._likeButton.addEventListener('click', () => this._likeCard());
     deleteButton.addEventListener('click', () => this._deleteCard());
-    imgButton.addEventListener('click', () => this._launchZoomCard(this._name, this._link));
+    imgButton.addEventListener('click', () => this.handleCardClick(this._name, this._link));
   }
 
   createCard() {
