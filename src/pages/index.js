@@ -47,6 +47,9 @@ const validationConfig = {
 const buttonOpenEditProfile = document.querySelector('.profile__edit-button');
 const buttonOpenAddCard = document.querySelector('.profile__add-button');
 
+const popupWithImage = new PopupWithImage('.popup_type_zoom');
+popupWithImage.setEventListeners();
+
 const cardList = new Section(
   {
     items: initialCards,
@@ -54,9 +57,7 @@ const cardList = new Section(
       const card = new Card(item,
         '.card-template',
         (name, link) => {
-          const popupWithImage = new PopupWithImage('.popup_type_zoom');
           popupWithImage.open(name, link);
-          popupWithImage.setEventListeners();
         });
       cardList.addItem(card.createCard());
     }
@@ -70,9 +71,7 @@ const popupAddCard = new PopupWithForm(
     const card = new Card(inputvalues,
       '.card-template',
       (name, link) => {
-        const popupWithImage = new PopupWithImage('.popup_type_zoom');
         popupWithImage.open(name, link);
-        popupWithImage.setEventListeners();
       });
     cardList.addItem(card.createCard());
     popupAddCard.close();
