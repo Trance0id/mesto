@@ -4,8 +4,9 @@ export default class Card {
   _link;
   _templateSelector;
   _newCard;
-  _likeButton;
-  _imageAltPrefix;
+  _likeButt
+  _deleteButton;
+  _imgButton;
   _launchZoomCard;
 
   constructor({ name, link }, templateSelector, handleCardClick) {
@@ -41,12 +42,12 @@ export default class Card {
 
   _addEventListeners() {
     this._likeButton = this._newCard.querySelector('.card__button-like');
-    const deleteButton = this._newCard.querySelector('.card__button-delete');
-    const imgButton = this._newCard.querySelector('.card__image');
+    this._deleteButton = this._newCard.querySelector('.card__button-delete');
+    this._imgButton = this._newCard.querySelector('.card__image');
 
     this._likeButton.addEventListener('click', () => this._likeCard());
-    deleteButton.addEventListener('click', () => this._deleteCard());
-    imgButton.addEventListener('click', () => this._handleCardClick(this._name, this._link));
+    this._deleteButton.addEventListener('click', () => this._deleteCard());
+    this._imgButton.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 
   createCard() {

@@ -3,63 +3,27 @@ import '../pages/index.css';
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
-const buttonOpenEditProfile = document.querySelector('.profile__edit-button');
-const buttonOpenAddCard = document.querySelector('.profile__add-button');
+import { initialCards, validationConfig, buttonOpenAddCard, buttonOpenEditProfile } from '../utils/constants';
 
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
+
+function createCard(item) {
+  const card = new Card(item, '.card-template', () => popupWithImage.open(item.name, item.link));
+  const cardElement = card.createCard();
+  return cardElement;
+}
 
 const cardList = new Section(
   {
     items: initialCards,
     renderer: item => {
-      const card = new Card(item,
-        '.card-template',
-        (name, link) => {
-          popupWithImage.open(name, link);
-        });
-      cardList.addItem(card.createCard());
+      const card = createCard(item);
+      cardList.addItem(card);
     }
   },
   '.cards__list');
@@ -68,20 +32,13 @@ cardList.renderItems();
 const popupAddCard = new PopupWithForm(
   '.popup_type_add',
   inputvalues => {
-    const card = new Card(inputvalues,
-      '.card-template',
-      (name, link) => {
-        popupWithImage.open(name, link);
-      });
-    cardList.addItem(card.createCard());
+    const card = createCard(inputvalues);
+    cardList.addItem(card);
     popupAddCard.close();
   },
-  () => addCardValidation.resetValidation()
+  () => formValidators['add-card'].resetValidation()
 );
 popupAddCard.setEventListeners();
-
-const addCardValidation = new FormValidator(validationConfig, popupAddCard.getForm());
-addCardValidation.enableValidation();
 
 const userInfo = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__description' });
 
@@ -91,12 +48,23 @@ const popupEditProfile = new PopupWithForm(
     userInfo.setUserInfo(inputvalues);
     popupEditProfile.close();
   },
-  () => editProfileValidation.resetValidation()
+  () => formValidators['edit-profile'].resetValidation()
 );
 popupEditProfile.setEventListeners();
 
-const editProfileValidation = new FormValidator(validationConfig, popupEditProfile.getForm());
-editProfileValidation.enableValidation();
+const formValidators = {}
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
 
 buttonOpenEditProfile.addEventListener('click', () => {
   popupEditProfile.fillInputs(userInfo.getUserInfo());
