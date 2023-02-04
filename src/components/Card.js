@@ -12,8 +12,7 @@ export default class Card {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
-    this._imageAltPrefix = 'Фото места под названием';
-    this.handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick;
   };
 
   _getTemplate() {
@@ -27,7 +26,8 @@ export default class Card {
     const newCardImg = this._newCard.querySelector('.card__image');
     this._newCard.querySelector('.card__caption-title').textContent = this._name;
     newCardImg.setAttribute('src', this._link);
-    newCardImg.setAttribute('alt', `${this._imageAltPrefix} ${this._name}`);
+    const imageAltPrefix = 'Фото места под названием';
+    newCardImg.setAttribute('alt', `${imageAltPrefix} ${this._name}`);
   }
 
   _likeCard() {
@@ -46,7 +46,7 @@ export default class Card {
 
     this._likeButton.addEventListener('click', () => this._likeCard());
     deleteButton.addEventListener('click', () => this._deleteCard());
-    imgButton.addEventListener('click', () => this.handleCardClick(this._name, this._link));
+    imgButton.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 
   createCard() {

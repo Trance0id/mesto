@@ -51,12 +51,12 @@
         <button type="button" class="button popup__close" aria-label="Закрыть"></button>
         <h3 class="popup__heading">Новое место</h3>
         <form name="add-card" class="popup__form">
-          <input type="text" class="popup__input" name="title" placeholder="Название" required minlength="2"
+          <input type="text" class="popup__input" name="name" placeholder="Название" required minlength="2"
             maxlength="30" autocomplete="off">
-          <div class="popup__error title-error"></div>
-          <input type="url" class="popup__input" name="url" placeholder="Ссылка на картинку" required
+          <div class="popup__error name-error"></div>
+          <input type="url" class="popup__input" name="link" placeholder="Ссылка на картинку" required
             autocomplete="off">
-          <div class="popup__error url-error"></div>
+          <div class="popup__error link-error"></div>
           <button type="submit" class="button popup__button">Создать</button>
         </form>
       </div>

@@ -4,31 +4,44 @@ export default class PopupWithForm extends Popup {
 
   _form;
   _inputs;
-  _inputValues;
 
-  constructor(popupSelector, handleFormSubmit) {
+  constructor(popupSelector, handleFormSubmit, resetValidation) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
+    this._resetValidation = resetValidation;
     this._form = this._popup.querySelector('.popup__form');
+    this._inputs = this._form.querySelectorAll('.popup__input');
   }
 
   close() {
+    this._form.reset();
+    this._resetValidation();
     super.close();
-    this._form.clear();
+  }
+
+  getForm() {
+    return this._form;
+  }
+
+  fillInputs(inputValues) {
+    this._inputs.forEach(input => {
+      input.value = inputValues[input.name];
+    });
   }
 
   _getInputValues() {
-    this._inputs = Array.from(this._form.querySelectorAll('.popup__input'));
-
+    const inputValues = {};
     this._inputs.forEach(input => {
-        this._inputValues[input.name] = input.value;
+      inputValues[input.name] = input.value;
     });
-
-    return this._inputValues;
+    return inputValues;
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', () => this._handleFormSubmit(this._getInputValues()));
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+    });
   }
 }
