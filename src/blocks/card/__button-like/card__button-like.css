@@ -1,5 +1,5 @@
 .card__button-like {
-  width: 22px;
+  width: 100%;
   min-width: 22px;
   height: 19px;
   background-image: url(../../../images/logo/logo-like_inactive.svg);

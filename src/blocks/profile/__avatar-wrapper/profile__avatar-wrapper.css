@@ -1,0 +1,10 @@
+.profile__avatar-wrapper {
+  width: 100%;
+  max-width: 120px;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}

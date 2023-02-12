@@ -9,11 +9,12 @@ export default class Card {
   _imgButton;
   _launchZoomCard;
 
-  constructor({ name, link }, templateSelector, handleCardClick) {
+  constructor({ name, image }, templateSelector, handleCardClick, handleDeleteClick) {
     this._name = name;
-    this._link = link;
+    this._link = image;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   };
 
   _getTemplate() {
@@ -35,6 +36,8 @@ export default class Card {
     this._likeButton.classList.toggle('card__button-like_active');
   }
 
+
+
   _deleteCard() {
     this._newCard.remove();
     this._newCard = null;
@@ -46,7 +49,7 @@ export default class Card {
     this._imgButton = this._newCard.querySelector('.card__image');
 
     this._likeButton.addEventListener('click', () => this._likeCard());
-    this._deleteButton.addEventListener('click', () => this._deleteCard());
+    this._deleteButton.addEventListener('click', (evt) => this._handleDeleteClick(evt));
     this._imgButton.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 
