@@ -7,7 +7,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
-import { initialCards, validationConfig, buttonOpenAddCard, buttonOpenEditProfile } from '../utils/constants';
+import { initialCards, validationConfig, buttonOpenAddCard, buttonOpenEditProfile } from '../utils/constants.js';
 
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
@@ -52,13 +52,13 @@ const popupEditProfile = new PopupWithForm(
 );
 popupEditProfile.setEventListeners();
 
-const formValidators = {}
+const formValidators = {};
 
 const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement)
-    const formName = formElement.getAttribute('name')
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
     formValidators[formName] = validator;
     validator.enableValidation();
   });

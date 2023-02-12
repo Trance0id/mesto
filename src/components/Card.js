@@ -4,7 +4,7 @@ export default class Card {
   _link;
   _templateSelector;
   _newCard;
-  _likeButt
+  _likeButton;
   _deleteButton;
   _imgButton;
   _launchZoomCard;
