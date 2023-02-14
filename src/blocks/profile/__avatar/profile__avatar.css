@@ -1,8 +1,8 @@
 .profile__avatar {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: center;
   position: relative;
   z-index: 0;
 }

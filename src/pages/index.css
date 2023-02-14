@@ -36,6 +36,7 @@
 
 @import url(../blocks/card/__button-like/_active/card__button-like_active.css);
 @import url(../blocks/card/__button-delete/card__button-delete.css);
+@import url(../blocks/card/__button-delete/_visible/card__button-delete_visible.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);

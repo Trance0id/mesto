@@ -1,35 +1,40 @@
-class Api {
+export default class Api {
+
+_baseUrl;
+_headers;
+
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
   }
 
+  _callFetch(endpoint, method, body, contentType) {
+    const headers = this._headers;
+    headers['Content-Type'] = contentType;
+    return fetch(this._baseUrl + endpoint, { method, headers, body: JSON.stringify(body) })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+    });
+  }
+
   getUserInfo() {
-    return fetch(this._baseUrl + '/character/7');
+    return this._callFetch('users/me');
   }
 
   getInitialCards() {
-    let str = '1';
-    const max = prompt('Сколько карточек вывести???');
-    for (let i = 0; i < max; i++) {
-
-      str += ',';
-      str += String(i);
-
-    }
-
-    return fetch(this._baseUrl + `/character/[${str}]`);
+    return this._callFetch('cards');
   }
 
+  updateUserInfo(body) {
+    return this._callFetch('users/me', 'PATCH', body, 'application/json');
+  }
+
+  addNewCard(body) {
+    return this._callFetch('cards', 'POST', body, 'application/json');
+  }
 
 }
-
-const api = new Api({
-  baseUrl: 'https://rickandmortyapi.com/api',
-  headers: {
-    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-    'Content-Type': 'application/json'
-  }
-});
-
-export default api;

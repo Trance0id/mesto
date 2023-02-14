@@ -6,15 +6,53 @@ import Section from "../components/Section.js";
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import api from '../components/Api.js';
+import Api from '../components/Api.js';
 
-import { validationConfig, buttonOpenAddCard, buttonOpenEditProfile, buttonOpenAvatar, userAvatar } from '../utils/constants.js';
+import { validationConfig,
+  apiConfig,
+  buttonOpenAddCard,
+  buttonOpenEditProfile,
+  buttonOpenAvatar
+} from '../utils/constants.js';
 
 function createCard(item) {
-  const card = new Card(item, '.card-template', () => popupWithImage.open(item.name, item.image), () => popupDeleteCard.open());
-  const cardElement = card.createCard();
-  return cardElement;
+  const card = new Card(
+    item,
+    '.card-template',
+    () => popupWithImage.open(item.name, item.link),
+    () => popupDeleteCard.open(),
+    (cardOwnerId) => cardOwnerId === userInfo.getUserId()
+  );
+  return card.createCard();
 }
+
+const api = new Api(apiConfig);
+
+api.getUserInfo()
+  .then(res => {
+    userInfo.setUserInfo({name: res.name, about: res.about});
+    userInfo.setUserAvatar(res.avatar);
+    userInfo.setUserId(res._id);
+  })
+  .catch(err => {
+    console.log('Ошибка!!! Статус: ', err);
+  });
+
+const cardList = new Section(
+  {
+    renderer: item => {
+      cardList.addItem(createCard(item));
+    }
+  },
+  '.cards__list');
+
+api.getInitialCards()
+  .then(items => {
+    cardList.renderItems(items);
+  })
+  .catch(err => {
+    console.log('Ошибка!!! ', err);
+  });
 
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
@@ -22,20 +60,30 @@ popupWithImage.setEventListeners();
 const popupAddCard = new PopupWithForm(
   '.popup_type_add',
   inputvalues => {
-    const card = createCard(inputvalues);
-    cardList.addItem(card);
+    api.addNewCard(inputvalues)
+      .then(res => {
+        const card = createCard(res);
+        cardList.addItem(card);
+      })
+      .catch(err => {
+        console.log('Ошибка!!! Статус: ', err);
+      });
     popupAddCard.close();
   },
   () => formValidators['add-card'].resetValidation()
 );
 popupAddCard.setEventListeners();
 
-const userInfo = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__description' });
+const userInfo = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__description', avatarSelector: '.profile__avatar' });
 
 const popupEditProfile = new PopupWithForm(
   '.popup_type_edit',
   inputvalues => {
-    userInfo.setUserInfo(inputvalues);
+    api.updateUserInfo(inputvalues)
+      .then(res => { userInfo.setUserInfo(res); })
+      .catch(err => {
+        console.log('Ошибка!!! Статус: ', err);
+      });
     popupEditProfile.close();
   },
   () => formValidators['edit-profile'].resetValidation()
@@ -69,54 +117,9 @@ const enableValidation = (config) => {
 };
 enableValidation(validationConfig);
 
-
-
 buttonOpenEditProfile.addEventListener('click', () => {
   popupEditProfile.fillInputs(userInfo.getUserInfo());
   popupEditProfile.open();
 });
 buttonOpenAddCard.addEventListener('click', () => popupAddCard.open());
 buttonOpenAvatar.addEventListener('click', () => popupChangeAvatar.open());
-
-api.getUserInfo()
-  .then(res => {
-    if(res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(res.status);
-    }
-  })
-  .then(res => {
-    userInfo.setUserInfo({name: res.name, about: res.location.name});
-    userAvatar.src = res.image;
-  })
-  .catch(err => {
-    console.dir('Ошибка!!! Статус: ', err);
-  });
-
-
-
-api.getInitialCards()
-  .then(res => {
-    if(res.ok) {
-      return res.json();
-      // console.log(res.body);
-    } else {
-      return Promise.reject(res.status);
-    }
-  })
-  .then(cards => {
-    const cardList = new Section(
-      {
-        items: cards,
-        renderer: item => {
-          const card = createCard(item);
-          cardList.addItem(card);
-        }
-      },
-      '.cards__list');
-    cardList.renderItems();
-  })
-  .catch(err => {
-    console.dir('Ошибка!!! Статус: ', err);
-  });
