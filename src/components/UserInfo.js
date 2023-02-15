@@ -26,8 +26,6 @@ export default class UserInfo {
     this._userId = id;
   }
 
-
-
   setUserInfo({ name, about }) {
     this._userNameElement.textContent = name;
     this._userAboutElement.textContent = about;

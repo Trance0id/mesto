@@ -16,7 +16,7 @@ _headers;
       if(res.ok) {
         return res.json();
       } else {
-        return Promise.reject(res.status);
+        return Promise.reject(`Ошибка! Статус: ${res.status}`);
       }
     });
   }
@@ -33,8 +33,24 @@ _headers;
     return this._callFetch('users/me', 'PATCH', body, 'application/json');
   }
 
+  changeAvatar(body) {
+    return this._callFetch('users/me/avatar', 'PATCH', body, 'application/json');
+  }
+
   addNewCard(body) {
     return this._callFetch('cards', 'POST', body, 'application/json');
+  }
+
+  deleteCard(cardId) {
+    return this._callFetch(`cards/${cardId}`, 'DELETE');
+  }
+
+  likeCard(cardId) {
+    return this._callFetch(`cards/${cardId}/likes`, 'PUT');
+  }
+
+  unlikeCard(cardId) {
+    return this._callFetch(`cards/${cardId}/likes`, 'DELETE');
   }
 
 }

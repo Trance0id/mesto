@@ -1,5 +1,6 @@
 export default class Card {
 
+  _id;
   _name;
   _link;
   _templateSelector;
@@ -8,18 +9,20 @@ export default class Card {
   _deleteButton;
   _imgButton;
   _launchZoomCard;
+  _likedList;
   _numLikes;
-  _ownerId;
 
-  constructor({ name, link, likes, owner }, templateSelector, handleCardClick, handleDeleteClick, checkCardOwnership) {
+  constructor({ name, link, likes, owner, _id }, templateSelector, handleCardClick, handleDeleteClick, isMyCard, handleLikeClick, isLikedByMe) {
+    this._id = _id;
     this._name = name;
     this._link = link;
-    this._numLikes = likes.length;
+    this._likedList = likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._ownerId = owner._id;
-    this._checkCardOwnership = checkCardOwnership;
+    this._isMyCard = isMyCard;
+    this._handleLikeClick = handleLikeClick;
+    this._isLikedByMe = isLikedByMe;
   };
 
   _getTemplate() {
@@ -30,37 +33,53 @@ export default class Card {
   }
 
   _customizeCard() {
-    const newCardImg = this._newCard.querySelector('.card__image');
+    this._likeButton = this._newCard.querySelector('.card__button-like');
+    this._deleteButton = this._newCard.querySelector('.card__button-delete');
+    this._img = this._newCard.querySelector('.card__image');
+
     this._newCard.querySelector('.card__caption-title').textContent = this._name;
-    newCardImg.setAttribute('src', this._link);
+
+    this._img.setAttribute('src', this._link);
     const imageAltPrefix = 'Фото места под названием';
-    newCardImg.setAttribute('alt', `${imageAltPrefix} ${this._name}`);
-    this._newCard.querySelector('.card__likes-number').textContent = this._numLikes;
-    const deleteButton = this._newCard.querySelector('.card__button-delete');
-    if(this._checkCardOwnership(this._ownerId)) {
-      deleteButton.classList.add('card__button-delete_visible');
+    this._img.setAttribute('alt', `${imageAltPrefix} ${this._name}`);
+
+    this._likes = this._newCard.querySelector('.card__likes-number');
+    this.setLikedList(this._likedList);
+    this.setLike(this._isLikedByMe(this._likedList))
+
+    if (this._isMyCard()) {
+      this._deleteButton.classList.add('card__button-delete_visible');
     }
+
+
   }
 
-  _likeCard() {
-    this._likeButton.classList.toggle('card__button-like_active');
+  getLikedList() {
+    return this._likedList;
   }
 
-  _deleteCard() {
-    this._newCard.remove();
-    this._newCard = null;
+  setLikedList(likedList) {
+    this._likedList = likedList;
+    this._likes.textContent = this._likedList.length;
+  }
+
+  setLike(iLikeIt) {
+    iLikeIt
+    ? this._likeButton.classList.add('card__button-like_active')
+    : this._likeButton.classList.remove('card__button-like_active');
   }
 
   _addEventListeners() {
-    this._likeButton = this._newCard.querySelector('.card__button-like');
-    this._deleteButton = this._newCard.querySelector('.card__button-delete');
-    this._imgButton = this._newCard.querySelector('.card__image');
-
-    this._likeButton.addEventListener('click', () => this._likeCard());
-    this._deleteButton.addEventListener('click', (evt) => this._handleDeleteClick(evt));
-    this._imgButton.addEventListener('click', () => {
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeClick(this);
+    });
+    this._deleteButton.addEventListener('click', () => {
+      this._handleDeleteClick(this._newCard, this._id)
+    });
+    this._img.addEventListener('click', () => {
       console.log(this._name, this._link);
-      this._handleCardClick(this._name, this._link)});
+      this._handleCardClick(this._name, this._link)
+    });
   }
 
   createCard() {
