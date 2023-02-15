@@ -12,17 +12,17 @@ export default class Card {
   _likedList;
   _numLikes;
 
-  constructor({ name, link, likes, owner, _id }, templateSelector, handleCardClick, handleDeleteClick, isMyCard, handleLikeClick, isLikedByMe) {
+  constructor({ name, link, likes, owner, _id }, templateSelector, cardMethods) {
     this._id = _id;
     this._name = name;
     this._link = link;
     this._likedList = likes;
     this._templateSelector = templateSelector;
-    this._handleCardClick = handleCardClick;
-    this._handleDeleteClick = handleDeleteClick;
-    this._isMyCard = isMyCard;
-    this._handleLikeClick = handleLikeClick;
-    this._isLikedByMe = isLikedByMe;
+    this._handleCardClick = cardMethods.handleCardClick;
+    this._handleDeleteClick = cardMethods.handleDeleteClick;
+    this._isMyCard = cardMethods.isMyCard;
+    this._handleLikeClick = cardMethods.handleLikeClick;
+    this._isLikedByMe = cardMethods.isLikedByMe;
   };
 
   _getTemplate() {
@@ -50,8 +50,6 @@ export default class Card {
     if (this._isMyCard()) {
       this._deleteButton.classList.add('card__button-delete_visible');
     }
-
-
   }
 
   getLikedList() {
@@ -77,7 +75,6 @@ export default class Card {
       this._handleDeleteClick(this._newCard, this._id)
     });
     this._img.addEventListener('click', () => {
-      console.log(this._name, this._link);
       this._handleCardClick(this._name, this._link)
     });
   }

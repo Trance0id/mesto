@@ -22,30 +22,33 @@ function createCard(item) {
   const card = new Card(
     item,
     '.card-template',
-    () => popupWithImage.open(item.name, item.link),
-    (card, cardId) => popupDeleteCard.open(card, cardId),
-    () => item.owner._id === userInfo.getUserId(),
-    (card) => {
-      if (card.getLikedList().some(user => user._id === userInfo.getUserId())) {
-        api.unlikeCard(item._id)
-          .then(res => {
-            updateLikes(card, res.likes, false)
-          })
-          .catch(err => {
-            console.log('Ошибка!!! Статус: ', err);
-          })
-      } else {
-        api.likeCard(item._id)
-          .then(res => {
-            updateLikes(card, res.likes, true)
-          })
-          .catch(err => {
-            console.log('Ошибка!!! Статус: ', err);
-          })
-      }
-    },
-    (likedList) => likedList.some(user => user._id === userInfo.getUserId())
-  );
+    {
+      handleCardClick: () => popupWithImage.open(item.name, item.link),
+      handleDeleteClick: (card, cardId) => popupDeleteCard.open(card, cardId),
+      isMyCard: () => item.owner._id === userInfo.getUserId(),
+      handleLikeClick: (card) => {
+        if (card.getLikedList().some(user => user._id === userInfo.getUserId())) {
+          api.unlikeCard(item._id)
+            .then(res => {
+              updateLikes(card, res.likes, false)
+            })
+            .catch(err => {
+              console.log('Ошибка!!! Статус: ', err);
+              alert(`Не удалось получить ответ от сервера. \n${err}`);
+            })
+        } else {
+          api.likeCard(item._id)
+            .then(res => {
+              updateLikes(card, res.likes, true)
+            })
+            .catch(err => {
+              console.log('Ошибка!!! Статус: ', err);
+              alert(`Не удалось получить ответ от сервера. \n${err}`);
+            })
+        }
+      },
+      isLikedByMe: (likedList) => likedList.some(user => user._id === userInfo.getUserId())
+    });
   return card.createCard();
 }
 
@@ -54,23 +57,18 @@ function updateLikes(card, likedList, isLiked) {
   card.setLike(isLiked);
 }
 
-const api = new Api(apiConfig);
-
-const popupDeleteCard = new PopupWithConfirm(
-  '.popup_type_delete',
-  (card, cardId) => {
-    api.deleteCard(cardId)
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
-        card.remove();
-        card = null;
-        popupDeleteCard.close();
-      });
-  }
+const cardList = new Section(
+  {
+    renderer: item => {
+      cardList.addItem(createCard(item));
+    }
+  },
+  '.cards__list'
 );
-popupDeleteCard.setEventListeners();
+
+const userInfo = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__description', avatarSelector: '.profile__avatar' });
+
+const api = new Api(apiConfig);
 
 api.getUserInfo()
   .then(res => {
@@ -80,15 +78,8 @@ api.getUserInfo()
   })
   .catch(err => {
     console.log(err);
+    alert(`Не удалось получить ответ от сервера. \n${err}`);
   });
-
-const cardList = new Section(
-  {
-    renderer: item => {
-      cardList.addItem(createCard(item));
-    }
-  },
-  '.cards__list');
 
 api.getInitialCards()
   .then(items => {
@@ -96,6 +87,7 @@ api.getInitialCards()
   })
   .catch(err => {
     console.log(err);
+    alert(`Не удалось получить ответ от сервера. \n${err}`);
   });
 
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
@@ -111,19 +103,19 @@ const popupAddCard = new PopupWithForm(
         const card = createCard(res);
         cardList.addItem(card);
       })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
+      .then(() => {
         submitButton.textContent = submitButtonText;
         popupAddCard.close();
-      });
+      })
+      .catch(err => {
+        console.log(err);
+        submitButton.textContent = submitButtonText;
+        alert(`Не удалось получить ответ от сервера. \n${err}`);
+      })
   },
   () => formValidators['add-card'].resetValidation()
 );
 popupAddCard.setEventListeners();
-
-const userInfo = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__description', avatarSelector: '.profile__avatar' });
 
 const popupEditProfile = new PopupWithForm(
   '.popup_type_edit',
@@ -133,14 +125,15 @@ const popupEditProfile = new PopupWithForm(
     submitButton.textContent = 'Сохранение...'
     api.updateUserInfo(inputvalues)
       .then(res => { userInfo.setUserInfo(res) })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
+      .then(() => {
         submitButton.textContent = submitButtonText;
         popupEditProfile.close();
-      });
-
+      })
+      .catch(err => {
+        console.log(err);
+        submitButton.textContent = submitButtonText;
+        alert(`Не удалось получить ответ от сервера. \n${err}`);
+      })
   },
   () => formValidators['edit-profile'].resetValidation()
 );
@@ -155,17 +148,36 @@ const popupChangeAvatar = new PopupWithForm(
       .then(res => {
         userInfo.setUserAvatar(res.avatar)
       })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
+      .then(() => {
         submitButton.textContent = submitButtonText;
         popupChangeAvatar.close();
-      });
+      })
+      .catch(err => {
+        console.log(err);
+        submitButton.textContent = submitButtonText;
+        alert(`Не удалось получить ответ от сервера. \n${err}`);
+      })
   },
   () => formValidators['change-avatar'].resetValidation()
 );
 popupChangeAvatar.setEventListeners();
+
+const popupDeleteCard = new PopupWithConfirm(
+  '.popup_type_delete',
+  (card, cardId) => {
+    api.deleteCard(cardId)
+      .then(() => {
+        card.remove();
+        card = null;
+        popupDeleteCard.close();
+      })
+      .catch(err => {
+        console.log(err);
+        alert(`Не удалось получить ответ от сервера. \n${err}`);
+      })
+  }
+);
+popupDeleteCard.setEventListeners();
 
 const formValidators = {};
 const enableValidation = (config) => {
