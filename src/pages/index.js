@@ -76,19 +76,20 @@ api.getUserInfo()
     userInfo.setUserAvatar(res.avatar);
     userInfo.setUserId(res._id);
   })
+  .then(() => api.getInitialCards())
+  .then(res => {
+    cardList.renderItems(res);
+  })
   .catch(err => {
     console.log(err);
     alert(`Не удалось получить ответ от сервера. \n${err}`);
-  });
-
-api.getInitialCards()
-  .then(items => {
-    cardList.renderItems(items);
   })
   .catch(err => {
     console.log(err);
     alert(`Не удалось получить ответ от сервера. \n${err}`);
   });
+
+
 
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
